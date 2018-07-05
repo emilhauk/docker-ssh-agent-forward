@@ -37,21 +37,25 @@ Connection to github.com closed.
 
 
 ## INSTALL .profile
+Adapt as needed
+```sh
 if [ -z "${SSH_AUTH_SOCK}" ]; then
-        echo "ssh-agent not started"
-        ssh-add
+	echo "ssh-agent not started"
+	ssh-add
 fi
 
 docker info 2>&1 > /dev/null
 if [[ $? -gt 0 ]]; then
-        echo "Docker not started!"
+	echo "Docker not started!"
 else
-        if [ -z "`docker ps -q --filter name=pinata-sshd`" ]; then
-                echo "Starting ssh agent forwarding to docker"
-                pinata-ssh-forward > /dev/null
-        fi
-fi
+	if [ -z "`docker ps -q --filter name=pinata-sshd`" ]; then
+		echo "Starting ssh agent forwarding to docker"
+		pinata-ssh-forward > /dev/null
+	fi
 
+	source ~/.pinata_ssh_state
+fi
+```
 
 ## Contributors
 
